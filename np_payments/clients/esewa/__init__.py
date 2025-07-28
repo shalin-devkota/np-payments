@@ -1,2 +1,2 @@
-from esewa_aysnc import AsyncEsewa
-from esewa import SyncEsewa
+from esewa_aysnc import AsyncEsewaClient
+from esewa import EsewaClient
