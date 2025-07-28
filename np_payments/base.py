@@ -8,7 +8,7 @@ class BasePaymentGateway(ABC):
     """
 
     @abstractmethod
-    def process_payment(
+    def initiate_payment(
         self, amount: float, success_url: str, failuire_url: str
     ) -> bool:
         """
@@ -21,7 +21,7 @@ class BasePaymentGateway(ABC):
         pass
 
     @abstractmethod
-    def refund_payment(self, data: str) -> bool:
+    def validate_payment(self, data: str) -> bool:
         """
         Refund a payment based on the transaction ID.
 

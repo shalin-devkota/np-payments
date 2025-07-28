@@ -6,9 +6,10 @@ import hmac
 import hashlib
 import base64
 from typing import Optional, Union
+from np_payments.base import BasePaymentGateway
 
 
-class _BaseEsewa:
+class _BaseEsewa(BasePaymentGateway):
     """
     Base class for Esewa payment gateway integration.
     This class provides the foundational methods and properties
@@ -124,3 +125,13 @@ class _BaseEsewa:
 
         response = self.transport.post(data=payload)
         return response
+
+    def validate_payment(self, data: str) -> bool:
+        """
+        Validate the payment response from Esewa.
+        This method should be implemented in subclasses to handle the specific validation logic.
+
+        :param data: The response data from Esewa to validate.
+        :return: True if the payment is valid, False otherwise.
+        """
+        raise NotImplementedError("This method is pending implementation.")
