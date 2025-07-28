@@ -1,12 +1,13 @@
 from np_payments.transport.httpx_sync import HTTPTransport
 from np_payments.transport.httpx_async import AsyncHTTPTransport
-from .scheams.esewa_schemas import ConstructEsewaRequest
+from .scheams.esewa_schemas import ConstructEsewaRequest, EsewaDecodedResponse
 from uuid import uuid4
 import hmac
 import hashlib
 import base64
 from typing import Optional, Union
 from np_payments.base import BasePaymentGateway
+import json
 
 
 class _BaseEsewa(BasePaymentGateway):
@@ -114,7 +115,6 @@ class _BaseEsewa(BasePaymentGateway):
             amount=amount,
             success_url=success_url,
             failure_url=failure_url,
-            product_code=product_code,
             product_service_charge=product_service_charge,
             product_delivery_charge=product_delivery_charge,
             tax_amount=tax_amount,
@@ -127,11 +127,12 @@ class _BaseEsewa(BasePaymentGateway):
         return response
 
     def validate_payment(self, data: str) -> bool:
-        """
-        Validate the payment response from Esewa.
-        This method should be implemented in subclasses to handle the specific validation logic.
-
-        :param data: The response data from Esewa to validate.
-        :return: True if the payment is valid, False otherwise.
-        """
-        raise NotImplementedError("This method is pending implementation.")
+        decoded_data = json.loads(base64.b64decode(data).decode("utf-8"))
+        data = EsewaDecodedResponse(**decoded_data)
+        signature_string = f"transaction_code={data.transaction_code},status={data.status},total_amount={data.total_amount},transaction_uuid={data.transaction_uuid},product_code={data.product_code},signed_field_names={data.signed_field_names}"
+        expected_signature = self._generate_signature(
+            key=self.secret_key, message=signature_string
+        )
+        if expected_signature != data.signature:
+            return False
+        return True

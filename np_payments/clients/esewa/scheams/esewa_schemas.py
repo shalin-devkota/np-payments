@@ -26,3 +26,13 @@ class EsewaRequestPayload(BaseModel):
     transaction_uuid: str
     signature: str
     signed_field_names: str
+
+
+class EsewaDecodedResponse(BaseModel):
+    transaction_code: str
+    status: str
+    total_amount: str
+    transaction_uuid: str
+    product_code: str
+    signed_field_names: str
+    signature: str
