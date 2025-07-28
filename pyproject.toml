@@ -10,14 +10,19 @@ readme = "README.md"
 packages = [
     { include = "np_payments" }
 ]
-homepage = "https://github.com/yourusername/np-payments"
-repository = "https://github.com/yourusername/np-payments"
+homepage = "https://github.com/shalin-devkota/np-payments"
+repository = "https://github.com/shalin-devkota/np-payments"
 keywords = ["esewa", "khalti", "nepal", "payment", "sdk"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+
+[tool.poetry-dynamic-versioning]
+enable = true
+vcs = "git"
+style = "semver"
 
 [tool.poetry.dependencies]
 python = ">=3.12"
