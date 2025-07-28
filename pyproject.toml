@@ -1,18 +1,28 @@
-[project]
+[tool.poetry]
 name = "np-payments"
 version = "0.1.0"
-description = ""
+description = "Python package for integrating with Nepalese payment gateways like esewa."
 authors = [
-    {name = "Shalin Devkota",email = "shalin.devkota01@gmail.com"}
+    "Shalin Devkota <shalin.devkota01@gmail.com>"
 ]
-license = {text = "MIT"}
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "httpx (>=0.28.1,<0.29.0)",
-    "pydantic (>=2.11.7,<3.0.0)"
+packages = [
+    { include = "np_payments" }
+]
+homepage = "https://github.com/yourusername/np-payments"
+repository = "https://github.com/yourusername/np-payments"
+keywords = ["esewa", "khalti", "nepal", "payment", "sdk"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
 ]
 
+[tool.poetry.dependencies]
+python = ">=3.12"
+httpx = ">=0.28.1,<0.29.0"
+pydantic = ">=2.11.7,<3.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
